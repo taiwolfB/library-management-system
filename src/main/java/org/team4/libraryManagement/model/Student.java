@@ -1,4 +1,4 @@
-package Model;
+package org.team4.libraryManagement.model;
 
 import java.util.UUID;
 
