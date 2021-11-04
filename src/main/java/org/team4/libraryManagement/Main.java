@@ -28,11 +28,6 @@ public class Main extends Application {
             //create the scene with the set width and height
             primaryStage.setScene(new Scene(root, 1200, 800));
 
-            //remove the default title bar such that we can replace it with our own custom one
-//            primaryStage.initStyle(StageStyle.UNDECORATED);
-//            ((MainController)loader.getController()).titleBarController.setStage(primaryStage);
-//            ((MainController)loader.getController()).orderDialogController.setStage(primaryStage);
-
             primaryStage.show();
 //        }
 //        catch (Exception e) {

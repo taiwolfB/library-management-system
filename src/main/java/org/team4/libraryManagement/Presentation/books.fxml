@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.team4.libraryManagement.Presentation.BooksController"
+            prefHeight="400.0" prefWidth="600.0">
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="20" >
+            <padding>
+                <Insets bottom="30" top="30" left="20" right="20"/>
+            </padding>
+            <JFXButton text="CREATE NEW" onAction="#createNewBook" styleClass="m-button" prefWidth="150"/>
+            <JFXButton text="OVERDUE BOOKS" onAction="#showOverdueBooks" styleClass="m-button" prefWidth="150"/>
+            <JFXButton text="LEND BOOK" onAction="#lendBook" styleClass="m-button" prefWidth="150"/>
+            <JFXButton text="RETURN BOOK" onAction="#returnBook" styleClass="m-button" prefWidth="150"/>
+            <Region prefHeight="40" VBox.vgrow="ALWAYS"/>
+
+            <JFXButton text="DELETE BOOK" onAction="#deleteBook" styleClass="m-button" prefWidth="150"/>
+        </VBox>
+    </left>
+    <center>
+        <BorderPane>
+            <top>
+                <HBox alignment="CENTER" spacing="20">
+                    <padding>
+                        <Insets bottom="20" top="20" left="30" right="30"/>
+                    </padding>
+                    <JFXTextField fx:id="searchBar" styleClass="m-textField" prefHeight="20" prefWidth="350"/>
+                    <JFXButton text="SEARCH" onAction="#searchBook" styleClass="m-button" prefWidth="100" prefHeight="20"/>
+                    <Region prefWidth="40" HBox.hgrow="ALWAYS"/>
+                    <Label text="search by "/>
+                    <JFXComboBox styleClass="m-combo" fx:id="comboBox" />
+                </HBox>
+            </top>
+            <center>
+                <VBox spacing="20" alignment="TOP_CENTER">
+                    <padding>
+                        <Insets bottom="20" top="20" left="30" right="30"/>
+                    </padding>
+                    <children>
+                        <Pane prefWidth="Infinity" styleClass="m-card">
+                            <VBox spacing="10">
+                                <padding>
+                                    <Insets bottom="20" top="20" left="30" right="30"/>
+                                </padding>
+                                <Label styleClass="m-heading" text="Book title"/>
+                                <Label styleClass="m-subheading" text="AUTHOR: Book author"/>
+                                <Label styleClass="m-subheading" text="ISBN: 000000000000"/>
+                                <Label styleClass="m-subheading" text="GENRE: Genre"/>
+                            </VBox>
+                        </Pane>
+                    </children>
+                </VBox>
+
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

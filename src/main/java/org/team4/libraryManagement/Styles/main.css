@@ -1,10 +1,10 @@
 .m-button{
     -fx-padding: 0.7em 0.57em;
     -fx-font-size: 14px;
-    -jfx-button-type: RAISED;
     -jfx-disable-visual-focus: true;
     -fx-background-color: rgb(77,102,204);
     -fx-text-fill: WHITE;
+    -fx-border-radius: 100;
 }
 .m-error-button {
     -fx-padding: 0.7em 0.57em;
@@ -16,6 +16,8 @@
 }
 .m-textField {
     -jfx-label-float: true;
+    -fx-font-size: 20;
+
 }
 .m-resultField {
     -fx-background-color: azure;
