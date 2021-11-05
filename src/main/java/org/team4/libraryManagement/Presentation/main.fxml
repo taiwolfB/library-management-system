@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.team4.libraryManagement.Presentation.MainController"
+           fx:id="root">
+    <fx:include source="Dialogs/bookFormDialog.fxml"/>
+    <fx:include source="Dialogs/warningDialog.fxml"/>
+    <fx:include source="Dialogs/errorDialog.fxml"/>
+    <fx:include source="Dialogs/lendDialog.fxml"/>
+    <fx:include source="Dialogs/overdueDialog.fxml"/>
+    <fx:include source="Dialogs/studentForm.fxml"/>
+    <BorderPane prefHeight="Infinity" prefWidth="Infinity">
+        <center>
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Books">
+                    <fx:include source="books.fxml"/>
+                </Tab>
+                <Tab text="Students">
+                    <fx:include source="students.fxml"/>
+                </Tab>
+            </TabPane>
+        </center>
+    </BorderPane>
+</StackPane>
