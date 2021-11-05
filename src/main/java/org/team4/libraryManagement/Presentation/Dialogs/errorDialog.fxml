@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import com.jfoenix.controls.JFXButton?>
+<JFXDialog xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.team4.libraryManagement.Presentation.Dialogs.ErrorDialogController"
+           prefWidth="600.0"
+           fx:id="root">
+    <JFXDialogLayout>
+        <heading>
+            <Label styleClass="m-heading">Warning!</Label>
+        </heading>
+        <body>
+            <Label fx:id="body"/>
+        </body>
+        <actions>
+            <JFXButton styleClass="m-error-button" onAction="#closeDialog">OK</JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</JFXDialog>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<JFXDialog xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.team4.libraryManagement.Presentation.Dialogs.OverdueDialogController"
+            fx:id="root"
+            overlayClose="false">
+    <JFXDialogLayout prefHeight="600.0" prefWidth="800.0">
+        <heading>
+            <Label styleClass="m-heading">Overdue Books</Label>
+        </heading>
+        <body>
+            <ScrollPane styleClass="m-scrollpane" prefWidth="500" prefHeight="350">
+                <VBox spacing="20" alignment="TOP_CENTER" fx:id="bookContainer">
+                    <padding>
+                        <Insets bottom="20" top="20" left="30" right="30"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+        </body>
+        <actions>
+            <JFXButton styleClass="m-buttoncard" onAction="#closeDialog">CLOSE</JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</JFXDialog>

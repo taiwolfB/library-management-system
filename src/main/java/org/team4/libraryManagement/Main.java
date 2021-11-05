@@ -1,6 +1,5 @@
 package org.team4.libraryManagement;
 
-import org.team4.libraryManagement.Presentation.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
 
 /**
  * The main class of the application where the scene is created and configured.
@@ -23,6 +23,8 @@ public class Main extends Application {
             //load and parse the FXML file containing the application frontend.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Presentation/main.fxml"));
             Parent root = loader.load();
+
+            DialogService.get().init(root);
             //Load the stylesheets from styles.
             root.getStylesheets().add(getClass().getResource("Styles/main.css").toString());
             //create the scene with the set width and height

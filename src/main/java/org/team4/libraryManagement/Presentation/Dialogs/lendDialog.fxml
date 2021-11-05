@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<JFXDialog xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.team4.libraryManagement.Presentation.Dialogs.LendDialogController"
+           fx:id="root">
+    <JFXDialogLayout prefWidth="500">
+        <heading>
+            <Label styleClass="m-heading">Lend Book</Label>
+        </heading>
+        <body>
+            <VBox spacing="40">
+                <padding>
+                    <Insets top="20" bottom="20" right="10" left="10"/>
+                </padding>
+                <JFXTextField promptText="Student's ID" styleClass="m-textField" fx:id="idTextField"/>
+            </VBox>
+        </body>
+        <actions>
+            <JFXButton styleClass="m-buttoncard" onAction="#closeDialog">CLOSE</JFXButton>
+            <JFXButton styleClass="m-button" onAction="#saveDialog">CREATE</JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</JFXDialog>

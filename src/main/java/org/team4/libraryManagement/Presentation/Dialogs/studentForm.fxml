@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<JFXDialog xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.team4.libraryManagement.Presentation.Dialogs.StudentFormController"
+           fx:id="root">
+    <JFXDialogLayout>
+        <heading>
+            <Label styleClass="m-heading" fx:id="heading">New Book</Label>
+        </heading>
+        <body>
+            <VBox spacing="40">
+                <padding>
+                    <Insets top="20" bottom="20" right="10" left="10"/>
+                </padding>
+                <JFXTextField promptText="First Name" styleClass="m-textField" fx:id="firstNameTextField"/>
+                <JFXTextField promptText="Last Name" styleClass="m-textField" fx:id="lastNameTextField"/>
+                <JFXTextField promptText="Email" styleClass="m-textField" fx:id="emailTextField"/>
+            </VBox>
+        </body>
+        <actions>
+            <JFXButton styleClass="m-buttoncard" onAction="#closeDialog">CLOSE</JFXButton>
+            <JFXButton styleClass="m-button" onAction="#saveDialog" fx:id="saveButton">CREATE</JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</JFXDialog>

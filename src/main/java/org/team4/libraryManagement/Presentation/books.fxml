@@ -21,11 +21,12 @@
             </padding>
             <JFXButton text="CREATE NEW" onAction="#createNewBook" styleClass="m-button" prefWidth="150"/>
             <JFXButton text="OVERDUE BOOKS" onAction="#showOverdueBooks" styleClass="m-button" prefWidth="150"/>
-            <JFXButton text="LEND BOOK" onAction="#lendBook" styleClass="m-button" prefWidth="150"/>
-            <JFXButton text="RETURN BOOK" onAction="#returnBook" styleClass="m-button" prefWidth="150"/>
+            <JFXButton text="LEND BOOK" onAction="#lendBook" styleClass="m-button" prefWidth="150" fx:id="lendBookButton" disable="true" />
+            <JFXButton text="RETURN BOOK" onAction="#returnBook" styleClass="m-button" prefWidth="150" fx:id="returnBookButton" disable="true"/>
+            <JFXButton text="UPDATE BOOK" onAction="#updateBook" styleClass="m-button" prefWidth="150" fx:id="updateBookButton" disable="true"/>
             <Region prefHeight="40" VBox.vgrow="ALWAYS"/>
 
-            <JFXButton text="DELETE BOOK" onAction="#deleteBook" styleClass="m-button" prefWidth="150"/>
+            <JFXButton text="DELETE BOOK" onAction="#deleteBook" styleClass="m-error-button" prefWidth="150" fx:id="deleteBookButton" disable="true"/>
         </VBox>
     </left>
     <center>
@@ -43,25 +44,13 @@
                 </HBox>
             </top>
             <center>
-                <VBox spacing="20" alignment="TOP_CENTER">
-                    <padding>
-                        <Insets bottom="20" top="20" left="30" right="30"/>
-                    </padding>
-                    <children>
-                        <Pane prefWidth="Infinity" styleClass="m-card">
-                            <VBox spacing="10">
-                                <padding>
-                                    <Insets bottom="20" top="20" left="30" right="30"/>
-                                </padding>
-                                <Label styleClass="m-heading" text="Book title"/>
-                                <Label styleClass="m-subheading" text="AUTHOR: Book author"/>
-                                <Label styleClass="m-subheading" text="ISBN: 000000000000"/>
-                                <Label styleClass="m-subheading" text="GENRE: Genre"/>
-                            </VBox>
-                        </Pane>
-                    </children>
-                </VBox>
-
+                <ScrollPane fitToWidth="true" styleClass="m-scrollpane">
+                    <VBox spacing="20" alignment="TOP_CENTER" fx:id="bookContainer">
+                        <padding>
+                            <Insets bottom="20" top="20" left="30" right="30"/>
+                        </padding>
+                    </VBox>
+                </ScrollPane>
             </center>
         </BorderPane>
     </center>

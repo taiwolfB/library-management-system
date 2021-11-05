@@ -10,6 +10,14 @@ public class Student {
     private boolean blacklisted;
     private String email;
 
+    public Student(UUID id, String firstName, String lastName, boolean blacklisted, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.blacklisted = blacklisted;
+        this.email = email;
+    }
+
 
     public UUID getId() {
         return id;
