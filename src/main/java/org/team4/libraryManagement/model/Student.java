@@ -4,14 +4,14 @@ import java.util.UUID;
 
 public class Student {
 
-    private UUID id;
+    private String uuid;
     private String firstName;
     private String lastName;
     private boolean blacklisted;
     private String email;
 
-    public Student(UUID id, String firstName, String lastName, boolean blacklisted, String email) {
-        this.id = id;
+    public Student(String uuid, String firstName, String lastName, boolean blacklisted, String email) {
+        this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.blacklisted = blacklisted;
@@ -19,12 +19,12 @@ public class Student {
     }
 
 
-    public UUID getId() {
-        return id;
+    public String getId() {
+        return uuid;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setId(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getFirstName() {

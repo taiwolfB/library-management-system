@@ -11,9 +11,11 @@ import javafx.util.StringConverter;
 import org.team4.libraryManagement.Presentation.Components.BookPane;
 import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
 import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
+import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BooksController {
 
@@ -53,6 +55,7 @@ public class BooksController {
 
     private void performDeletion() {
         //TODO implement deletion of selected book
+        new GeneralDAO<>(Book.class).delete();
     }
 
     //TODO
@@ -74,6 +77,7 @@ public class BooksController {
 
     public void searchBook(ActionEvent actionEvent) {
         //TODO get list of books
+        List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
 
         selectedBook.unselect();
         selectedBook = null;
@@ -97,6 +101,7 @@ public class BooksController {
 
     //TODO patch up later
     private void updateBookList(ArrayList<Book> books){
+        List<Book> booksList = new GeneralDAO<>(Book.class).selectAll();
         books.add(new Book("haha", "auth", "ha", "ha", null, null, null));
         books.add( new Book("bebe", "autho", "be", "be", null, null, null));
         books.add( new Book("bebe", "autho", "be", "be", null, null, null));

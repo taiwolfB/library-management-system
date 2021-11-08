@@ -1,6 +1,7 @@
 package org.team4.libraryManagement.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -10,9 +11,9 @@ public class Book {
     private String author;
     private String genre;
     private String isbn;
-    private UUID uuid;
-    private UUID borrowedBy;
-    private LocalDateTime borrwedDate;
+    private String uuid;
+    private String borrowedBy;
+    private Date borrwedDate;
 
 
     public String getTitle() {
@@ -47,34 +48,31 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
-    public UUID getBorrowedBy() {
+    public String getBorrowedBy() {
         return borrowedBy;
     }
 
-    public void setBorrowedBy(UUID borrowedBy) {
+    public void setBorrowedBy(String borrowedBy) {
         this.borrowedBy = borrowedBy;
     }
 
-    public LocalDateTime getBorrwedDate() {
+    public Date getBorrwedDate() {
         return borrwedDate;
     }
 
-    public void setBorrwedDate(LocalDateTime borrwedDate) {
+    public void setBorrwedDate(Date borrwedDate) {
         this.borrwedDate = borrwedDate;
     }
 
-    public Book() {
-    }
-
-    public Book(String title, String author, String genre, String isbn, UUID uuid, UUID borrowedBy, LocalDateTime borrwedDate) {
+    public Book(String title, String author, String genre, String isbn, String uuid, String borrowedBy, Date borrwedDate) {
         this.title = title;
         this.author = author;
         this.genre = genre;
