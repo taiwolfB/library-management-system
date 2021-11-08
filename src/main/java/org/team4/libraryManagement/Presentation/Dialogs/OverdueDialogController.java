@@ -26,14 +26,14 @@ public class OverdueDialogController extends DialogController {
     public void initDialog(Object param) {
         //TODO remove:
         ArrayList<Tuple<Book, Student>> info = new ArrayList<>();
-        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-                             new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
-        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
-        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
-        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
+//                             new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
+//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
+//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
+//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
         bookContainer.getChildren().addAll(
                 info.stream().map((t) -> OverdueBookPane.build(t.get1(), t.get2())).toList()
         );

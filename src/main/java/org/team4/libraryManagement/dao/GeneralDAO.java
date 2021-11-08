@@ -9,10 +9,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +38,7 @@ public class GeneralDAO<T>
         return "SELECT * FROM " + type.getSimpleName();
     }
 
-    private String selectByParameterQuery(String field)
+    private String selectBookByParameterQuery(String field)
     {
         return "SELECT * FROM " + type.getSimpleName() + " WHERE " + field + " =?";
     }
@@ -67,6 +64,49 @@ public class GeneralDAO<T>
         return "UPDATE Book SET title = ?, author = ?, genre = ?, isbn = ?, borrowedBy = ?, borrowedDate = ? "  + "WHERE uuid = ?";
     }
 
+    public int  insertBook(List<String> paramsList) {
+
+        Connection dbConnection = ConnectionFactory.getConnection();
+        PreparedStatement insertStatement = null;
+        int insertedId = -1;
+        try {
+            insertStatement = dbConnection.prepareStatement(insertBookQuery(), Statement.RETURN_GENERATED_KEYS);
+            insertStatement.executeUpdate();
+
+            ResultSet rs = insertStatement.getGeneratedKeys();
+            if (rs.next()) {
+                insertedId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, type.getSimpleName() + "GeneralDAO:insert " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(insertStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+        return insertedId;
+    }
+
+    public int  insertStudent(List<String> paramsList) {
+
+        Connection dbConnection = ConnectionFactory.getConnection();
+        PreparedStatement insertStatement = null;
+        int insertedId = -1;
+        try {
+            insertStatement = dbConnection.prepareStatement(insertStudentQuery(), Statement.RETURN_GENERATED_KEYS);
+            insertStatement.executeUpdate();
+
+            ResultSet rs = insertStatement.getGeneratedKeys();
+            if (rs.next()) {
+                insertedId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, type.getSimpleName() + "GeneralDAO:insert " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(insertStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+        return insertedId;
+    }
 
     public void delete(String uuid)
     {
@@ -121,30 +161,31 @@ public class GeneralDAO<T>
     }
 
 
-    public void selectByParameter(String parameter, String uuid)
+    public List<T> selectBookByParameter(String parameter, String searchBar)
     {
-        //TODOq
-        Connection connection=null;
+        Connection connection= null;
         PreparedStatement statement=null;
+        ResultSet resultSet=null;
+        String querry = selectBookByParameterQuery(parameter);
 
-        String querry = selectByParameterQuery(parameter);
         try {
             connection = ConnectionFactory.getConnection();
             statement=connection.prepareStatement(querry);
-            statement.setString(1, );
-            statement.executeUpdate();
+
+            return createObjects(resultSet);
+
         }
         catch(SQLException e)
         {
-            LOGGER.log(Level.WARNING, type.getName() + "AbstractDAO: delete " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "GeneralDAO: selectAll " + e.getMessage());
         }
-        finally {
-
+        finally{
+            ConnectionFactory.close(resultSet);
             ConnectionFactory.close(statement);
             ConnectionFactory.close(connection);
 
         }
-
+        return null;
     }
 
 

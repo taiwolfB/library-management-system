@@ -35,8 +35,8 @@ public class StudentsController {
         selectedStudent = null;
         //TODO REMOVE and get them from database (BUT ONLY WHEN SEARCHING)
         ArrayList<Student> studentList = new ArrayList<>();
-        studentList.add(new Student(new UUID(2,2), "R", "H", false, "rh@gmail.com"));
-        studentList.add(new Student(new UUID(2,2), "H", "K", true, "hk@gmail.com"));
+//        studentList.add(new Student(new UUID(2,2), "R", "H", false, "rh@gmail.com"));
+//        studentList.add(new Student(new UUID(2,2), "H", "K", true, "hk@gmail.com"));
         //TODO REMOVE
         updateStudentList(studentList);
     }

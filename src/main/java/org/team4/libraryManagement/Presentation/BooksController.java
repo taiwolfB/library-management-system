@@ -14,8 +14,13 @@ import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
 import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class BooksController {
 
@@ -55,12 +60,24 @@ public class BooksController {
 
     private void performDeletion() {
         //TODO implement deletion of selected book
-        new GeneralDAO<>(Book.class).delete();
+        new GeneralDAO<>(Book.class).delete(selectedBook.getId());
     }
 
+    private boolean isOverdue(Date date)
+    {
+        Date currentDate = new Date();
+        long diff = currentDate.getTime() - date.getTime();
+        TimeUnit time = TimeUnit.DAYS;
+        long difference = time.convert(diff, TimeUnit.MILLISECONDS);
+        return difference >= 14L;
+
+    }
     //TODO
     public void showOverdueBooks(ActionEvent actionEvent) {
         DialogService.get().openDialog("overdue");
+        List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
+        bookList.stream().filter(b -> isOverdue(b.getBorrwedDate()));
+
     }
 
     public void lendBook(ActionEvent actionEvent) {
@@ -68,7 +85,10 @@ public class BooksController {
     }
 
     public void returnBook(ActionEvent actionEvent) {
-        //TODO
+        Book book = selectedBook.getBook();
+        book.setBorrwedDate(null);
+        book.setBorrowedBy(null);
+        new GeneralDAO<>(Book.class).updateBook(book);
     }
 
     public void updateBook(ActionEvent actionEvent) {
@@ -77,8 +97,7 @@ public class BooksController {
 
     public void searchBook(ActionEvent actionEvent) {
         //TODO get list of books
-        List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
-
+        List<Book> bookList = new GeneralDAO<>(Book.class).selectBookByParameter(comboBox.getValue().getText(), searchBar.getText());
         selectedBook.unselect();
         selectedBook = null;
         setButtons(true);
@@ -101,14 +120,14 @@ public class BooksController {
 
     //TODO patch up later
     private void updateBookList(ArrayList<Book> books){
-        List<Book> booksList = new GeneralDAO<>(Book.class).selectAll();
-        books.add(new Book("haha", "auth", "ha", "ha", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
-        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+
+//        books.add(new Book("haha", "auth", "ha", "ha", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
+//        books.add( new Book("bebe", "autho", "be", "be", null, null, null));
         bookContainer.getChildren().clear();
         bookContainer.getChildren().addAll(
                 books.stream().map( b -> BookPane.build(b, () -> selectBook(b))).toList()

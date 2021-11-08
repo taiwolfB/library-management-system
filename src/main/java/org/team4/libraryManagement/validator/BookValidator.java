@@ -12,8 +12,8 @@ public class BookValidator implements Validator<List<String>>{
     private static final String TITLE_PATTERN = "^[A-za-z]+[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*$";
     private static final String NAME_PATTERN = "^[A-za-z]+[-]?[A-za-z]*$";
     private static final String GENRE_PATTERN = "^[A-za-z]+[-]?[A-za-z]*$";
-    private static final String ISBN_PATTERN  = "^(?:ISBN(?:-13)?:?●)?(?=[0-9]{13}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)↵\n" +
-            "97[89][-●]?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9]$";
+    private static final String ISBN_PATTERN  = "^(?:ISBN(?:-13)?:?)?(?=[0-9]{13}$|(?=(?:[0-9]+[-]){4})[-0-9]{17}$)\n" +
+            "97[89][-]?[0-9]{1,5}[-]?[0-9]+[-]?[0-9]+[-]?[0-9]$";
 
     @Override
     public boolean validate(List<String> paramsList) {
