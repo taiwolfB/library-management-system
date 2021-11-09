@@ -25,17 +25,19 @@ public class OverdueDialogController extends DialogController {
     @Override
     public void initDialog(Object param) {
         //TODO remove:
-        ArrayList<Tuple<Book, Student>> info = new ArrayList<>();
+//        ArrayList<Tuple<Book, Student>> info = new ArrayList<>();
 //        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-//                             new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//                             new Student("YES", "hhe", "hoho", false, "hihi")));
 //        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//                new Student("HEIL", "hhe", "hoho", false, "hihi")));
 //        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//                new Student("HITLER", "hhe", "hoho", false, "hihi")));
 //        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
-//                new Student(new UUID(10,10), "hhe", "hoho", false, "hihi")));
+//                new Student("NEIN", "hhe", "hoho", false, "hihi")));
+        ArrayList<Tuple<Book,Student>> overdueContainer = (ArrayList<Tuple<Book, Student>>) param;
+
         bookContainer.getChildren().addAll(
-                info.stream().map((t) -> OverdueBookPane.build(t.get1(), t.get2())).toList()
+                overdueContainer.stream().map((t) -> OverdueBookPane.build(t.get1(), t.get2())).toList()
         );
     }
 

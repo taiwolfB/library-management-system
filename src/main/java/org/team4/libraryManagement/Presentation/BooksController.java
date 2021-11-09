@@ -8,12 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import oracle.ucp.common.waitfreepool.Tuple;
 import org.team4.libraryManagement.Presentation.Components.BookPane;
 import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
 import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
 import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
+import org.team4.libraryManagement.model.Student;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +62,7 @@ public class BooksController {
     }
 
     private void performDeletion() {
-        //TODO implement deletion of selected book
+        //TODO implement deletion of selected book -> finished -> TO review
         new GeneralDAO<>(Book.class).delete(selectedBook.getId());
     }
 
@@ -72,11 +75,15 @@ public class BooksController {
         return difference >= 14L;
 
     }
-    //TODO
+    //TODO -> finished -> TO review
     public void showOverdueBooks(ActionEvent actionEvent) {
-        DialogService.get().openDialog("overdue");
+
         List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
+        ArrayList<Tuple<Book,Student>> overdueTuple = new ArrayList<>();
         bookList.stream().filter(b -> isOverdue(b.getBorrwedDate()));
+        bookList.forEach(book -> overdueTuple.add(new Tuple<>(book,new GeneralDAO<>(Student.class).selectById(book.getBorrowedBy()))));
+
+        DialogService.get().openDialog("overdue",overdueTuple);
 
     }
 
@@ -96,8 +103,13 @@ public class BooksController {
     }
 
     public void searchBook(ActionEvent actionEvent) {
-        //TODO get list of books
-        List<Book> bookList = new GeneralDAO<>(Book.class).selectBookByParameter(comboBox.getValue().getText(), searchBar.getText());
+        //TODO get list of books -> finished -> TO review
+        List<Book> bookList = new GeneralDAO<>(Book.class).selectByParameter(comboBox.getValue().getText(), searchBar.getText());
+
+        bookContainer.getChildren().clear();
+        bookContainer.getChildren().addAll(
+                bookList.stream().map( b -> BookPane.build(b, () -> selectBook(b))).toList()
+        );
         selectedBook.unselect();
         selectedBook = null;
         setButtons(true);
