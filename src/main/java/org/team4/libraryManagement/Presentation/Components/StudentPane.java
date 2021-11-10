@@ -42,7 +42,7 @@ public class StudentPane extends Pane {
         box.getChildren().addAll(
                 buildLabel(student.getFirstName() + student.getLastName(), "m-heading"),
                 buildLabel(student.getEmail(), "m-subheading"),
-                buildLabel(student.getId().toString(), "m-subheading")
+                buildLabel(student.getUuid(), "m-subheading")
         );
         HBox box2 = new HBox();
         box2.setAlignment(Pos.CENTER_LEFT);

@@ -12,11 +12,13 @@ import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 import org.team4.libraryManagement.validator.StudentValidator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StudentFormController extends DialogController {
 
+    protected static final Logger LOGGER = Logger.getLogger(StudentFormController.class.getName());
     @FXML JFXDialog root;
     @FXML Label heading;
     @FXML JFXTextField firstNameTextField;
@@ -62,18 +64,62 @@ public class StudentFormController extends DialogController {
     }
 
     private void updateStudent() {
-        System.out.println("updated");
-        //TODO process fields and call function to handle database communication for update -> finished -> TO review
+
         List<String> parametersToValidate = new ArrayList<>();
         parametersToValidate.add(emailTextField.getText());
         parametersToValidate.add(firstNameTextField.getText());
         parametersToValidate.add(lastNameTextField.getText());
         if (new GeneralDAO<>(Student.class).getStudentValidator().validate(parametersToValidate)){
-            //TODO you need to call updateStudent() from GeneralDAO but you need the uuid of the student(idk where to get it from)
+            target.setFirstName(firstNameTextField.getText());
+            target.setLastName(lastNameTextField.getText());
+            target.setEmail(emailTextField.getText());
+            new GeneralDAO<>(Student.class).updateStudent(target);
+            LOGGER.log(Level.FINE, "Student with uuid " + target.getUuid() + " updated");
         }
+        //TODO show updated student on UI
+    }
+
+    private String generateRandomNumericString() {
+
+        int leftLimit = 48; // digit '0'
+        int rightLimit = 57; // digit '9'
+        int targetStringLength = 10;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        return  buffer.toString();
     }
 
     private void createStudent() {
         //TODO process fields and call function to handle database communication for create
+        List<String> parametersToValidate = new ArrayList<>();
+        parametersToValidate.add(emailTextField.getText());
+        parametersToValidate.add(firstNameTextField.getText());
+        parametersToValidate.add(lastNameTextField.getText());
+        if (new GeneralDAO<>(Student.class).getStudentValidator().validate(parametersToValidate)){
+            target = new Student();
+            target.setFirstName(firstNameTextField.getText());
+            target.setLastName(lastNameTextField.getText());
+            target.setEmail(emailTextField.getText());
+            target.setBlacklisted(false);
+            String uuid = generateRandomNumericString();
+            List<Student> students = new GeneralDAO<>(Student.class).selectAll();
+            HashSet<String> set = new HashSet<>();
+            students.forEach(s -> set.add(s.getUuid()));
+            while(true)
+            {
+                if(set.contains(uuid))
+                    uuid = generateRandomNumericString();
+                else
+                   break;
+            }
+            target.setUuid(uuid);
+
+            new GeneralDAO<>(Student.class).insertStudent(target);
+        }
     }
 }

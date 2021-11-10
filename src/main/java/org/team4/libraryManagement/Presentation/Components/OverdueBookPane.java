@@ -33,7 +33,7 @@ public class OverdueBookPane extends Pane {
                 buildLabel(book.getTitle(), "m-heading"),
                 buildLabel("ISBN: " + book.getIsbn(), "m-subheading"),
                 buildLabel("BORROWED BY: " + student.getFirstName() + " " + student.getLastName(), "m-subheading"),
-                buildLabel("BORROWER ID: " + student.getId().toString(), "m-subheading")
+                buildLabel("BORROWER ID: " + student.getUuid().toString(), "m-subheading")
         );
         HBox box2 = new HBox();
         box2.setAlignment(Pos.CENTER_LEFT);

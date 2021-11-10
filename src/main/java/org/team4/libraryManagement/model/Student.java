@@ -18,12 +18,37 @@ public class Student {
         this.email = email;
     }
 
+    public Student() {
 
-    public String getId() {
+    }
+
+    public Student(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Student(String uuid, String firstName) {
+        this.uuid = uuid;
+        this.firstName = firstName;
+    }
+
+    public Student(String uuid, String firstName, String lastName) {
+        this.uuid = uuid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Student(String uuid, String firstName, String lastName, boolean blacklisted) {
+        this.uuid = uuid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.blacklisted = blacklisted;
+    }
+
+    public String getUuid() {
         return uuid;
     }
 
-    public void setId(String uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
@@ -58,4 +83,6 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

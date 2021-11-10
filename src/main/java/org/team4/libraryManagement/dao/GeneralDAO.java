@@ -12,11 +12,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,7 +41,7 @@ public class GeneralDAO<T>
 
     private String deleteQuery(String field)
     {
-        return "DELETE FROM " + type.getSimpleName() + " WHERE "  + field + " =?";
+        return "DELETE FROM " + type.getSimpleName() + " WHERE "  + field + " = ?";
     }
 
     private String selectAllQuery()
@@ -58,19 +55,17 @@ public class GeneralDAO<T>
     }
     private String selectByParameterQuery(String field)
     {
-        return "SELECT * FROM " + type.getSimpleName() + " WHERE " + field + " =?";
+        return "SELECT * FROM " + type.getSimpleName() + " WHERE " + field + " = ?";
     }
-
-
 
     private String insertStudentQuery()
     {   //TODO
-        return "INSERT INTO  Student (firstName,lastName,blackListed,email) VALUES (?,?,?,?)";
+        return "INSERT INTO  Student (uuid,firstName,lastName,blackListed,email) VALUES (?,?,?,?,?)";
     }
 
     private String insertBookQuery()
     {   //TODO
-        return "INSERT INTO  Book (title,author,genre,isbn,borrowedBy,borrowedDate) VALUES (?,?,?,?,?,?)";
+        return "INSERT INTO  Book (uuid,title,author,genre,isbn,borrowedBy,borrowedDate) VALUES (?,?,?,?,?,?,?)";
     }
 
    private String updateStudentQuery()
@@ -89,7 +84,6 @@ public class GeneralDAO<T>
         PreparedStatement insertStatement = null;
         int insertedId = -1;
         try {
-
 
             insertStatement = dbConnection.prepareStatement(insertBookQuery(), Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1,book.getTitle());
@@ -120,19 +114,18 @@ public class GeneralDAO<T>
         int insertedId = -1;
         try {
             insertStatement = dbConnection.prepareStatement(insertStudentQuery(), Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setString(1,student.getFirstName());
-            insertStatement.setString(2,student.getLastName());
-            insertStatement.setBoolean(3,student.isBlacklisted());
-            insertStatement.setString(4,student.getEmail());
-
+            insertStatement.setString(1,student.getUuid());
+            insertStatement.setString(2,student.getFirstName());
+            insertStatement.setString(3,student.getLastName());
+            insertStatement.setBoolean(4,student.isBlacklisted());
+            insertStatement.setString(5,student.getEmail());
             insertStatement.executeUpdate();
-
             ResultSet rs = insertStatement.getGeneratedKeys();
             if (rs.next()) {
                 insertedId = rs.getInt(1);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getSimpleName() + "GeneralDAO:insert " + e.getMessage());
+            LOGGER.log(Level.WARNING,"GeneralDAO:insertStudent " + e.getMessage());
         } finally {
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
@@ -145,10 +138,10 @@ public class GeneralDAO<T>
         Connection connection=null;
         PreparedStatement statement=null;
 
-        String querry = deleteQuery("id");
+        String query = deleteQuery("uuid");
         try {
             connection = ConnectionFactory.getConnection();
-            statement=connection.prepareStatement(querry);
+            statement=connection.prepareStatement(query);
             statement.setString(1, uuid);
             statement.executeUpdate();
         }
@@ -170,14 +163,13 @@ public class GeneralDAO<T>
         Connection connection= null;
         PreparedStatement statement=null;
         ResultSet resultSet=null;
-        String querry = selectAllQuery();
+        String query = selectAllQuery();
 
         try {
             connection = ConnectionFactory.getConnection();
-            statement=connection.prepareStatement(querry);
-
+            statement=connection.prepareStatement(query);
+            resultSet=statement.executeQuery();
             return createObjects(resultSet);
-
         }
         catch(SQLException e)
         {
@@ -225,12 +217,14 @@ public class GeneralDAO<T>
         Connection connection= null;
         PreparedStatement statement=null;
         ResultSet resultSet=null;
-        String querry = selectByParameterQuery(parameter);
+        String query = selectByParameterQuery(parameter);
 
         try {
             connection = ConnectionFactory.getConnection();
-            statement=connection.prepareStatement(querry);
+            statement=connection.prepareStatement(query);
+            statement.setString(1,searchBar);
 
+            resultSet = statement.executeQuery();
             return createObjects(resultSet);
 
         }
@@ -250,24 +244,24 @@ public class GeneralDAO<T>
 
     public void updateStudent(Student student)
     {
-        Connection connection=null;
+        Connection connection= (Connection) ConnectionFactory.getConnection();
         PreparedStatement statement=null;
 
-        String querry = updateStudentQuery();
+        String query = updateStudentQuery();
         try {
             connection = ConnectionFactory.getConnection();
-            statement=connection.prepareStatement(querry);
+            statement=connection.prepareStatement(query);
             statement.setString(1, student.getFirstName());
             statement.setString(2, student.getLastName());
             statement.setBoolean(3, student.isBlacklisted());
             statement.setString(4, student.getEmail());
-            statement.setString(5, student.getId());
+            statement.setString(5, student.getUuid());
 
             statement.executeUpdate();
         }
         catch(SQLException e)
         {
-            LOGGER.log(Level.WARNING, type.getName() + "AbstractDAO: delete " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "GeneralDAO: delete " + e.getMessage());
         }
         finally {
 
@@ -316,21 +310,18 @@ public class GeneralDAO<T>
         try {
             while (resultSet.next()) {
                 T instance = type.getDeclaredConstructor().newInstance();
-
                 for (Field field : type.getDeclaredFields()) {
                     Object value = resultSet.getObject(field.getName());
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), type);
                     Method method = propertyDescriptor.getWriteMethod();
                     method.invoke(instance, value);
                 }
-
                 list.add(instance);
-
             }
         }
         catch(InstantiationException | IllegalAccessException | SQLException | IntrospectionException | InvocationTargetException | NoSuchMethodException e)
         {
-            LOGGER.log(Level.WARNING, type.getSimpleName() + "DAO:createObjects " +  e.getMessage());
+            LOGGER.log(Level.WARNING, "GeneralDAO:createObjects " +  e.getMessage());
         }
         return list;
     }

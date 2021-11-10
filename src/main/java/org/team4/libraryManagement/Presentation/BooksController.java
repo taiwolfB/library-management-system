@@ -63,7 +63,7 @@ public class BooksController {
 
     private void performDeletion() {
         //TODO implement deletion of selected book -> finished -> TO review
-        new GeneralDAO<>(Book.class).delete(selectedBook.getId());
+        new GeneralDAO<>(Book.class).delete(selectedBook.getBook().getUuid());
     }
 
     private boolean isOverdue(Date date)

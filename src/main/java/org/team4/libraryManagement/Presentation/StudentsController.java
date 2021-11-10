@@ -12,11 +12,14 @@ import org.team4.libraryManagement.Presentation.Components.BookPane;
 import org.team4.libraryManagement.Presentation.Components.StudentPane;
 import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
 import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
+import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class StudentsController {
 
@@ -34,11 +37,8 @@ public class StudentsController {
         InitializeComboBox();
         selectedStudent = null;
         //TODO REMOVE and get them from database (BUT ONLY WHEN SEARCHING)
-        ArrayList<Student> studentList = new ArrayList<>();
-//        studentList.add(new Student(new UUID(2,2), "R", "H", false, "rh@gmail.com"));
-//        studentList.add(new Student(new UUID(2,2), "H", "K", true, "hk@gmail.com"));
-        //TODO REMOVE
-        updateStudentList(studentList);
+        List<Student> studentList = new GeneralDAO<>(Student.class).selectAll();
+        updateStudentList((ArrayList<Student>) studentList);
     }
 
     private void updateStudentList(ArrayList<Student> students) {
@@ -87,12 +87,14 @@ public class StudentsController {
     }
 
     private void performBlacklisting() {
-        //TODO implement deletion of selected book
+        selectedStudent.getStudent().setBlacklisted(true);
+        new GeneralDAO<>(Student.class).updateStudent(selectedStudent.getStudent());
     }
 
 
     public void unblacklistStudent(ActionEvent actionEvent) {
-        //TODO
+        selectedStudent.getStudent().setBlacklisted(false);
+        new GeneralDAO<>(Student.class).updateStudent(selectedStudent.getStudent());
     }
 
     public void updateStudent(ActionEvent actionEvent) {
@@ -107,21 +109,23 @@ public class StudentsController {
         ));
     }
     private void performDeletion() {
-        //TODO implement deletion of selected book
+        //TODO implement deletion of selected book -> Finished -> Review
+        new GeneralDAO<>(Student.class).delete(selectedStudent.getStudent().getUuid());
     }
 
     public void searchStudent(ActionEvent actionEvent) {
         //TODO get list of students
-
-        selectedStudent.unselect();
+        List<Student> students = new GeneralDAO<>(Student.class).selectByParameter(comboBox.getValue().getText(),searchBar.getText());
+        updateStudentList((ArrayList<Student>) students);
+        //selectedStudent.unselect();
         setButtons(true);
         selectedStudent = null;
     }
 
     private void InitializeComboBox() {
-        comboBox.getItems().add(new Label("Email"));
-        comboBox.getItems().add(new Label("First Name"));
-        comboBox.getItems().add(new Label("Last Name"));
+        comboBox.getItems().add(new Label("email"));
+        comboBox.getItems().add(new Label("firstName"));
+        comboBox.getItems().add(new Label("lastName"));
         comboBox.getItems().add(new Label("Student Id"));
         comboBox.setConverter(new StringConverter<Label>() {
             @Override
