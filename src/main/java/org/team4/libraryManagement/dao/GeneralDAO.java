@@ -91,7 +91,7 @@ public class GeneralDAO<T>
             insertStatement.setString(3,book.getGenre());
             insertStatement.setString(4,book.getIsbn());
             insertStatement.setString(5,book.getBorrowedBy());
-            insertStatement.setDate(6, (java.sql.Date) book.getBorrwedDate());
+            insertStatement.setDate(6, (java.sql.Date) book.getBorrowedDate());
             insertStatement.executeUpdate();
 
             ResultSet rs = insertStatement.getGeneratedKeys();
@@ -195,9 +195,11 @@ public class GeneralDAO<T>
             connection = ConnectionFactory.getConnection();
             statement=connection.prepareStatement(selectById());
             statement.setString(1,uuid);
-
-            return (T) createObjects(resultSet);
-
+            resultSet = statement.executeQuery();
+            ArrayList<T> objects = (ArrayList<T>) createObjects(resultSet);
+            if(objects.size()==0)
+                return null;
+            return objects.get(0);
         }
         catch(SQLException e)
         {
@@ -287,7 +289,7 @@ public class GeneralDAO<T>
             statement.setString(3, book.getGenre());
             statement.setString(4, book.getIsbn());
             statement.setString(5, book.getBorrowedBy());
-            statement.setDate(6, (java.sql.Date) book.getBorrwedDate());
+            statement.setDate(6, (java.sql.Date) book.getBorrowedDate());
             statement.setString(7, book.getBorrowedBy());
             statement.executeUpdate();
         }

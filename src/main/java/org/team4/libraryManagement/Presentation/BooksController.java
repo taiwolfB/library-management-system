@@ -42,10 +42,7 @@ public class BooksController {
 
     @FXML void initialize(){
         InitializeComboBox();
-        ArrayList<Book> bookList = new ArrayList<>();
         selectedBook = null;
-
-        //TODO REMOVE
         updateBookList(new ArrayList<>());
     }
 
@@ -62,7 +59,6 @@ public class BooksController {
     }
 
     private void performDeletion() {
-        //TODO implement deletion of selected book -> finished -> TO review
         new GeneralDAO<>(Book.class).delete(selectedBook.getBook().getUuid());
     }
 
@@ -79,9 +75,10 @@ public class BooksController {
     public void showOverdueBooks(ActionEvent actionEvent) {
 
         List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
+        System.out.println(bookList.size());
         ArrayList<Tuple<Book,Student>> overdueTuple = new ArrayList<>();
-        bookList.stream().filter(b -> isOverdue(b.getBorrwedDate()));
-        bookList.forEach(book -> overdueTuple.add(new Tuple<>(book,new GeneralDAO<>(Student.class).selectById(book.getBorrowedBy()))));
+        bookList = bookList.stream().filter(b -> isOverdue(b.getBorrowedDate())).collect(Collectors.toList());
+        bookList.forEach(book -> overdueTuple.add(new Tuple<>(book,new GeneralDAO<>(Student.class). selectById(book.getBorrowedBy()))));
 
         DialogService.get().openDialog("overdue",overdueTuple);
 
@@ -93,7 +90,7 @@ public class BooksController {
 
     public void returnBook(ActionEvent actionEvent) {
         Book book = selectedBook.getBook();
-        book.setBorrwedDate(null);
+        book.setBorrowedDate(null);
         book.setBorrowedBy(null);
         new GeneralDAO<>(Book.class).updateBook(book);
     }
@@ -105,7 +102,6 @@ public class BooksController {
     public void searchBook(ActionEvent actionEvent) {
         //TODO get list of books -> finished -> TO review
         List<Book> bookList = new GeneralDAO<>(Book.class).selectByParameter(comboBox.getValue().getText(), searchBar.getText());
-
         bookContainer.getChildren().clear();
         bookContainer.getChildren().addAll(
                 bookList.stream().map( b -> BookPane.build(b, () -> selectBook(b))).toList()
