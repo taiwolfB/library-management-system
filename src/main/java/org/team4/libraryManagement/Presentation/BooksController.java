@@ -64,6 +64,7 @@ public class BooksController {
 
     private boolean isOverdue(Date date)
     {
+        if(date == null){return false;}
         Date currentDate = new Date();
         long diff = currentDate.getTime() - date.getTime();
         TimeUnit time = TimeUnit.DAYS;
@@ -106,7 +107,7 @@ public class BooksController {
         bookContainer.getChildren().addAll(
                 bookList.stream().map( b -> BookPane.build(b, () -> selectBook(b))).toList()
         );
-        selectedBook.unselect();
+        //selectedBook.unselect();
         selectedBook = null;
         setButtons(true);
     }
