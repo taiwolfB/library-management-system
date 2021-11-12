@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.team4.libraryManagement.service.DialogService;
 
 public class WarningDialogController extends DialogController{
 

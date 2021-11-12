@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.team4.libraryManagement.service.DialogService;
 import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
 
@@ -13,8 +14,6 @@ import org.team4.libraryManagement.model.Book;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

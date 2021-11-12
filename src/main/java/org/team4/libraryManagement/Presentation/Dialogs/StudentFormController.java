@@ -3,14 +3,12 @@ package org.team4.libraryManagement.Presentation.Dialogs;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.image.impl.General;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.team4.libraryManagement.service.DialogService;
 import org.team4.libraryManagement.dao.GeneralDAO;
-import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
-import org.team4.libraryManagement.validator.StudentValidator;
 
 import java.util.*;
 import java.util.logging.Level;

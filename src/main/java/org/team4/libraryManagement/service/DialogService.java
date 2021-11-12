@@ -1,8 +1,9 @@
-package org.team4.libraryManagement.Presentation.Dialogs;
+package org.team4.libraryManagement.service;
 
 import com.jfoenix.controls.JFXDialog;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import org.team4.libraryManagement.Presentation.Dialogs.DialogController;
 
 import java.util.HashMap;
 

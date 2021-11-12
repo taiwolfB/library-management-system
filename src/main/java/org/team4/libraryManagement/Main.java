@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
+import org.team4.libraryManagement.service.DialogService;
 
 /**
  * The main class of the application where the scene is created and configured.

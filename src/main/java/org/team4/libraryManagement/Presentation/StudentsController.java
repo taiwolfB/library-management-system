@@ -8,18 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
-import org.team4.libraryManagement.Presentation.Components.BookPane;
 import org.team4.libraryManagement.Presentation.Components.StudentPane;
-import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
+import org.team4.libraryManagement.service.DialogService;
 import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
 import org.team4.libraryManagement.dao.GeneralDAO;
-import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.logging.Logger;
 
 public class StudentsController {
 

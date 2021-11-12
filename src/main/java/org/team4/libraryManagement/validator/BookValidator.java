@@ -1,7 +1,7 @@
 package org.team4.libraryManagement.validator;
 
 
-import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
+import org.team4.libraryManagement.service.DialogService;
 
 import java.util.List;
 import java.util.regex.Pattern;

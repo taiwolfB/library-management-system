@@ -1,8 +1,7 @@
-package org.team4.libraryManagement.controller;
+package org.team4.libraryManagement.service;
 import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.*;
-import org.team4.libraryManagement.ConnectionFactory;
 
 import java.io.IOException;
 import java.util.logging.Level;

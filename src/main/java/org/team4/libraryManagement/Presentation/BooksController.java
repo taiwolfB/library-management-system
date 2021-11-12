@@ -10,15 +10,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import oracle.ucp.common.waitfreepool.Tuple;
 import org.team4.libraryManagement.Presentation.Components.BookPane;
-import org.team4.libraryManagement.Presentation.Dialogs.DialogService;
+import org.team4.libraryManagement.service.DialogService;
 import org.team4.libraryManagement.Presentation.Dialogs.WarningMessage;
 import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

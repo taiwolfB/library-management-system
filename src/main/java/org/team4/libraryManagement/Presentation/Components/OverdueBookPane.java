@@ -5,7 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import org.team4.libraryManagement.controller.EmailService;
+import org.team4.libraryManagement.service.EmailService;
 import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 
