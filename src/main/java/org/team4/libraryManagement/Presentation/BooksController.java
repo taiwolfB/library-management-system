@@ -76,23 +76,25 @@ public class BooksController {
     public void showOverdueBooks(ActionEvent actionEvent) {
 
         List<Book> bookList = new GeneralDAO<>(Book.class).selectAll();
-        System.out.println(bookList.size());
         ArrayList<Tuple<Book,Student>> overdueTuple = new ArrayList<>();
         bookList = bookList.stream().filter(b -> isOverdue(b.getBorrowedDate())).collect(Collectors.toList());
         bookList.forEach(book -> overdueTuple.add(new Tuple<>(book,new GeneralDAO<>(Student.class). selectById(book.getBorrowedBy()))));
-
         DialogService.get().openDialog("overdue",overdueTuple);
 
     }
 
     public void lendBook(ActionEvent actionEvent) {
         DialogService.get().openDialog("lend", selectedBook.getBook());
+        lendBookButton.setDisable(true);
+        returnBookButton.setDisable(false);
     }
 
     public void returnBook(ActionEvent actionEvent) {
         Book book = selectedBook.getBook();
         book.setBorrowedDate(null);
         book.setBorrowedBy(null);
+        lendBookButton.setDisable(false);
+        returnBookButton.setDisable(true);
         new GeneralDAO<>(Book.class).updateBook(book);
     }
 
@@ -117,7 +119,15 @@ public class BooksController {
             selectedBook.unselect();
         selectedBook = (BookPane) bookContainer.getChildren().stream().filter(  node -> ((BookPane) node).getBook().equals(b)).findFirst().get();
         selectedBook.select();
+
+
         setButtons(false);
+        if(selectedBook.getBook().getBorrowedBy() != null){
+            lendBookButton.setDisable(true);
+        }
+        else {
+            returnBookButton.setDisable(true);
+        }
     }
 
     private void setButtons(boolean b) {
@@ -145,10 +155,10 @@ public class BooksController {
 
 
     private void InitializeComboBox() {
-        comboBox.getItems().add(new Label("Title"));
-        comboBox.getItems().add(new Label("Author"));
+        comboBox.getItems().add(new Label("title"));
+        comboBox.getItems().add(new Label("author"));
         comboBox.getItems().add(new Label("ISBN"));
-        comboBox.getItems().add(new Label("Genre"));
+        comboBox.getItems().add(new Label("genre"));
         comboBox.setConverter(new StringConverter<Label>() {
             @Override
             public String toString(Label object) {

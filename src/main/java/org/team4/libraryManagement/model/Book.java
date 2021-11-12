@@ -1,7 +1,7 @@
 package org.team4.libraryManagement.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 

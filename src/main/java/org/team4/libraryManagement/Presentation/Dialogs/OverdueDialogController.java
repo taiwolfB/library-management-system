@@ -35,7 +35,7 @@ public class OverdueDialogController extends DialogController {
 //        info.add(new Tuple<>(new Book("AHh", "hahah", "hehe", "hoho", null, null, null),
 //                new Student("NEIN", "hhe", "hoho", false, "hihi")));
         ArrayList<Tuple<Book,Student>> overdueContainer = (ArrayList<Tuple<Book, Student>>) param;
-
+        bookContainer.getChildren().clear();
         bookContainer.getChildren().addAll(
                 overdueContainer.stream().map((t) -> OverdueBookPane.build(t.get1(), t.get2())).toList()
         );

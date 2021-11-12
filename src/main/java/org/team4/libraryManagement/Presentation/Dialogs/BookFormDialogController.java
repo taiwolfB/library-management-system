@@ -77,6 +77,7 @@ public class BookFormDialogController extends DialogController {
         parametersToValidate.add(authorTextField.getText());
         parametersToValidate.add(genreTextField.getText());
         parametersToValidate.add(ISBNTextField.getText());
+        System.out.println(ISBNTextField.getText());
         if (new GeneralDAO<>(Book.class).getBookValidator().validate(parametersToValidate)){
             target.setTitle(titleTextField.getText());
             target.setAuthor(authorTextField.getText());
@@ -94,6 +95,7 @@ public class BookFormDialogController extends DialogController {
         parametersToValidate.add(authorTextField.getText());
         parametersToValidate.add(genreTextField.getText());
         parametersToValidate.add(ISBNTextField.getText());
+        System.out.println(ISBNTextField.getText());
         if (new GeneralDAO<>(Book.class).getBookValidator().validate(parametersToValidate)){
             target = new Book();
             target.setTitle(titleTextField.getText());

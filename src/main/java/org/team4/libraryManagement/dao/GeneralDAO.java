@@ -221,12 +221,10 @@ public class GeneralDAO<T>
         PreparedStatement statement=null;
         ResultSet resultSet=null;
         String query = selectByParameterQuery(parameter);
-
         try {
             connection = ConnectionFactory.getConnection();
             statement=connection.prepareStatement(query);
             statement.setString(1,searchBar);
-
             resultSet = statement.executeQuery();
             return createObjects(resultSet);
 
@@ -290,7 +288,7 @@ public class GeneralDAO<T>
             statement.setString(3,book.getGenre());
             statement.setString(4,book.getIsbn());
             statement.setString(5,book.getBorrowedBy());
-            statement.setDate(6, (java.sql.Date) book.getBorrowedDate());
+            statement.setDate(6,  book.getBorrowedDate());
             statement.setString(7,book.getUuid());
 
 
