@@ -92,7 +92,6 @@ public class StudentsController {
     public void unblacklistStudent(ActionEvent actionEvent) {
         selectedStudent.getStudent().setBlacklisted(false);
         new GeneralDAO<>(Student.class).updateStudent(selectedStudent.getStudent());
-        //TODO delete blacklist label
     }
 
     public void updateStudent(ActionEvent actionEvent) {

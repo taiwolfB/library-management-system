@@ -16,7 +16,7 @@
            fx:id="root">
     <JFXDialogLayout>
         <heading>
-            <Label styleClass="m-heading">Warning!</Label>
+            <Label styleClass="m-heading">Error!</Label>
         </heading>
         <body>
             <Label fx:id="body"/>
