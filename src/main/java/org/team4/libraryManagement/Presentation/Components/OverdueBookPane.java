@@ -5,11 +5,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import org.team4.libraryManagement.ConnectionFactory;
+import org.team4.libraryManagement.controller.EmailService;
 import org.team4.libraryManagement.model.Book;
 import org.team4.libraryManagement.model.Student;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class OverdueBookPane extends Pane {
     Book book;
+    private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
+
 
     public Book getBook() {
         return book;
@@ -22,7 +31,7 @@ public class OverdueBookPane extends Pane {
     public static OverdueBookPane build(Book book, Student student ) {
 
         OverdueBookPane base = new OverdueBookPane(book);
-        base.onMouseClickedProperty().set( (e) -> base.sendEmail());
+        base.onMouseClickedProperty().set( (e) -> base.sendEmail(student,book.getTitle()));
         base.getStyleClass().add("m-card");
         base.setPadding(new Insets(20, 0, 20, 30));
         base.prefWidth(Double.POSITIVE_INFINITY);
@@ -58,7 +67,16 @@ public class OverdueBookPane extends Pane {
         return l;
     }
 
-    void sendEmail(){
+    void sendEmail(Student student, String overDueBook)  {
         //TODO implement email sending (with sendgrid probabbly)
+        String emailContent = "Dear " + student.getFirstName() + " \n" +
+                "The book following book: " + overDueBook + " is over due!";
+        EmailService emailService = new EmailService();
+        try {
+            emailService.sendEmail("libraryEmail@company.com",student.getEmail(),
+                    "Book " + overDueBook + " overdue",emailContent);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error mail service: " + e.getMessage());
+        }
     }
 }
