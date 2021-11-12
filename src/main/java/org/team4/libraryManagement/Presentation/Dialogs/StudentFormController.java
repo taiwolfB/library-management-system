@@ -79,21 +79,6 @@ public class StudentFormController extends DialogController {
         //TODO show updated student on UI
     }
 
-    private String generateRandomNumericString() {
-
-        int leftLimit = 48; // digit '0'
-        int rightLimit = 57; // digit '9'
-        int targetStringLength = 10;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        return  buffer.toString();
-    }
-
     private void createStudent() {
         //TODO process fields and call function to handle database communication for create
         List<String> parametersToValidate = new ArrayList<>();

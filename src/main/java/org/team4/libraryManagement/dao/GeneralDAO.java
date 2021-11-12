@@ -86,12 +86,13 @@ public class GeneralDAO<T>
         try {
 
             insertStatement = dbConnection.prepareStatement(insertBookQuery(), Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setString(1,book.getTitle());
-            insertStatement.setString(2,book.getAuthor());
-            insertStatement.setString(3,book.getGenre());
-            insertStatement.setString(4,book.getIsbn());
-            insertStatement.setString(5,book.getBorrowedBy());
-            insertStatement.setDate(6, (java.sql.Date) book.getBorrwedDate());
+            insertStatement.setString(1,book.getUuid());
+            insertStatement.setString(2,book.getTitle());
+            insertStatement.setString(3,book.getAuthor());
+            insertStatement.setString(5,book.getIsbn());
+            insertStatement.setString(4,book.getGenre());
+            insertStatement.setString(6,book.getBorrowedBy());
+            insertStatement.setDate(7, (java.sql.Date) book.getBorrowedDate());
             insertStatement.executeUpdate();
 
             ResultSet rs = insertStatement.getGeneratedKeys();
@@ -195,9 +196,11 @@ public class GeneralDAO<T>
             connection = ConnectionFactory.getConnection();
             statement=connection.prepareStatement(selectById());
             statement.setString(1,uuid);
-
-            return (T) createObjects(resultSet);
-
+            resultSet = statement.executeQuery();
+            ArrayList<T> objects = (ArrayList<T>) createObjects(resultSet);
+            if(objects.size()==0)
+                return null;
+            return objects.get(0);
         }
         catch(SQLException e)
         {
@@ -275,20 +278,22 @@ public class GeneralDAO<T>
 
     public void updateBook(Book book)
     {
-        Connection connection=null;
+        Connection connection= (Connection) ConnectionFactory.getConnection();
         PreparedStatement statement=null;
 
-        String querry = updateBookQuery()   ;
+        String query = updateBookQuery();
         try {
             connection = ConnectionFactory.getConnection();
-            statement=connection.prepareStatement(querry);
-            statement.setString(1, book.getTitle());
-            statement.setString(2, book.getAuthor());
-            statement.setString(3, book.getGenre());
-            statement.setString(4, book.getIsbn());
-            statement.setString(5, book.getBorrowedBy());
-            statement.setDate(6, (java.sql.Date) book.getBorrwedDate());
-            statement.setString(7, book.getBorrowedBy());
+            statement=connection.prepareStatement(query);
+            statement.setString(1,book.getTitle());
+            statement.setString(2,book.getAuthor());
+            statement.setString(3,book.getGenre());
+            statement.setString(4,book.getIsbn());
+            statement.setString(5,book.getBorrowedBy());
+            statement.setDate(6, (java.sql.Date) book.getBorrowedDate());
+            statement.setString(7,book.getUuid());
+
+
             statement.executeUpdate();
         }
         catch(SQLException e)
@@ -296,10 +301,8 @@ public class GeneralDAO<T>
             LOGGER.log(Level.WARNING, type.getName() + "AbstractDAO: delete " + e.getMessage());
         }
         finally {
-
             ConnectionFactory.close(statement);
             ConnectionFactory.close(connection);
-
         }
 
     }

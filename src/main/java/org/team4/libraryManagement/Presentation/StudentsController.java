@@ -36,7 +36,7 @@ public class StudentsController {
     @FXML void initialize(){
         InitializeComboBox();
         selectedStudent = null;
-        //TODO REMOVE and get them from database (BUT ONLY WHEN SEARCHING)
+        //TODO REMOVE and get them from database (BUT ONLY WHEN SEARCHING) -> finished -> to discuss/review
         List<Student> studentList = new GeneralDAO<>(Student.class).selectAll();
         updateStudentList((ArrayList<Student>) studentList);
     }
@@ -89,12 +89,14 @@ public class StudentsController {
     private void performBlacklisting() {
         selectedStudent.getStudent().setBlacklisted(true);
         new GeneralDAO<>(Student.class).updateStudent(selectedStudent.getStudent());
+        //TODO show blacklist label
     }
 
 
     public void unblacklistStudent(ActionEvent actionEvent) {
         selectedStudent.getStudent().setBlacklisted(false);
         new GeneralDAO<>(Student.class).updateStudent(selectedStudent.getStudent());
+        //TODO delete blacklist label
     }
 
     public void updateStudent(ActionEvent actionEvent) {
@@ -111,10 +113,11 @@ public class StudentsController {
     private void performDeletion() {
         //TODO implement deletion of selected book -> Finished -> Review
         new GeneralDAO<>(Student.class).delete(selectedStudent.getStudent().getUuid());
+        //TODO show the studentt has been deleted, discussion
     }
 
     public void searchStudent(ActionEvent actionEvent) {
-        //TODO get list of students
+        //TODO get list of students -> finished -> to review
         List<Student> students = new GeneralDAO<>(Student.class).selectByParameter(comboBox.getValue().getText(),searchBar.getText());
         updateStudentList((ArrayList<Student>) students);
         //selectedStudent.unselect();

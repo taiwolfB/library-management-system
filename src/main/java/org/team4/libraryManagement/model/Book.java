@@ -13,7 +13,7 @@ public class Book {
     private String isbn;
     private String uuid;
     private String borrowedBy;
-    private Date borrwedDate;
+    private Date borrowedDate;
 
 
     public String getTitle() {
@@ -64,12 +64,12 @@ public class Book {
         this.borrowedBy = borrowedBy;
     }
 
-    public Date getBorrwedDate() {
-        return borrwedDate;
+    public Date getBorrowedDate() {
+        return borrowedDate;
     }
 
-    public void setBorrwedDate(Date borrwedDate) {
-        this.borrwedDate = borrwedDate;
+    public void setBorrowedDate(Date borrwedDate) {
+        this.borrowedDate = borrwedDate;
     }
 
     public Book(String title, String author, String genre, String isbn, String uuid, String borrowedBy, Date borrwedDate) {
@@ -79,6 +79,48 @@ public class Book {
         this.isbn = isbn;
         this.uuid = uuid;
         this.borrowedBy = borrowedBy;
-        this.borrwedDate = borrwedDate;
+        this.borrowedDate = borrwedDate;
+    }
+
+    public Book(String title, String author, String genre, String isbn, String uuid, String borrowedBy) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.isbn = isbn;
+        this.uuid = uuid;
+        this.borrowedBy = borrowedBy;
+    }
+
+    public Book(String title, String author, String genre, String isbn, String uuid) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.isbn = isbn;
+        this.uuid = uuid;
+    }
+
+    public Book(String title, String author, String genre, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.isbn = isbn;
+    }
+
+    public Book(String title, String author, String genre) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+    }
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public Book(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Book() {
     }
 }
