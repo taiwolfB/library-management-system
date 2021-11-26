@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import org.team4.libraryManagement.service.DialogService;
 import org.team4.libraryManagement.dao.GeneralDAO;
 import org.team4.libraryManagement.model.Student;
+import org.team4.libraryManagement.validator.*;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -79,9 +80,9 @@ public class StudentFormController extends DialogController {
         //TODO show updated student on UI
     }
 
-    public Student getCreatedStudent()
+    public Student getCreatedStudent(String param)
     {
-        return (Student) new GeneralDAO<>(Student.class).selectByParameter("firstName","testFirstName1");
+        return (Student) new GeneralDAO<>(Student.class).selectByParameter("firstName",param);
     }
     public void createStudent(String firstName, String lastName, String email) {
         //TODO process fields and call function to handle database communication for create
