@@ -70,7 +70,21 @@ public class BookFormDialogController extends DialogController {
         root.close();
     }
 
-    private void updateBook() {
+    public void setSuccessfulTest(){
+        titleTextField.setText("UpdateTestTitle");
+        authorTextField.setText("UpdateTestAuthor");
+        genreTextField.setText("UpdateTestGenre");
+        ISBNTextField.setText("978-0-596-52068-7");
+    }
+
+    public void setUnsuccessfulTest(){
+        titleTextField.setText("TestTitle");
+        authorTextField.setText("TestAuthor");
+        genreTextField.setText("TestGenre");
+        ISBNTextField.setText("unvalid ISBN");
+    }
+
+    public void updateBook() {
         List<String> parametersToValidate = new ArrayList<>();
         parametersToValidate.add(titleTextField.getText());
         parametersToValidate.add(authorTextField.getText());

@@ -59,7 +59,7 @@ public class BooksController {
         new GeneralDAO<>(Book.class).delete(selectedBook.getBook().getUuid());
     }
 
-    private boolean isOverdue(Date date)
+    public boolean isOverdue(Date date)
     {
         if(date == null){return false;}
         Date currentDate = new Date();
