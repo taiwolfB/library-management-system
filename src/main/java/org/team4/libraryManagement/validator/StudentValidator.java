@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class StudentValidator implements Validator<List<String>>{
 
     private static final String EMAIL_PATTERN ="^[A-Za-z0-9+_.-]+@[A-za-z]+\\.[A-za-z]+$";
-        private static final String FIRST_NAME_PATTERN = "^[A-za-z]+[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*$";
+    private static final String FIRST_NAME_PATTERN = "^[A-za-z]+[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*[\\s-]?[A-za-z]*$";
     private static final String LAST_NAME_PATTERN = "^[A-za-z]+[-]?[A-za-z]*$";
 
     @Override

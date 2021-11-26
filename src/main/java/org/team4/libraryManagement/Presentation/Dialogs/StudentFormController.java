@@ -29,6 +29,8 @@ public class StudentFormController extends DialogController {
         DialogService.get().subscribe("studentForm", root, this);
     }
 
+
+
     @Override
     public void initDialog(Object param) {
 
@@ -52,7 +54,7 @@ public class StudentFormController extends DialogController {
 
     public void saveDialog(ActionEvent actionEvent) {
         if(target == null)
-            createStudent();
+            createStudent(firstNameTextField.getText(),lastNameTextField.getText(),emailTextField.getText());
         else
             updateStudent();
         root.close();
@@ -77,17 +79,21 @@ public class StudentFormController extends DialogController {
         //TODO show updated student on UI
     }
 
-    private void createStudent() {
+    public Student getCreatedStudent()
+    {
+        return (Student) new GeneralDAO<>(Student.class).selectByParameter("firstName","testFirstName1");
+    }
+    public void createStudent(String firstName, String lastName, String email) {
         //TODO process fields and call function to handle database communication for create
         List<String> parametersToValidate = new ArrayList<>();
-        parametersToValidate.add(emailTextField.getText());
-        parametersToValidate.add(firstNameTextField.getText());
-        parametersToValidate.add(lastNameTextField.getText());
+        parametersToValidate.add(email);
+        parametersToValidate.add(firstName);
+        parametersToValidate.add(lastName);
         if (new GeneralDAO<>(Student.class).getStudentValidator().validate(parametersToValidate)){
             target = new Student();
-            target.setFirstName(firstNameTextField.getText());
-            target.setLastName(lastNameTextField.getText());
-            target.setEmail(emailTextField.getText());
+            target.setFirstName(firstName);
+            target.setLastName(lastName);
+            target.setEmail(email);
             target.setBlacklisted(false);
             String uuid = generateRandomNumericString();
             List<Student> students = new GeneralDAO<>(Student.class).selectAll();
